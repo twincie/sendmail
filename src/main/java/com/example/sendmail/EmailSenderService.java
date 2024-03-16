@@ -8,14 +8,19 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import java.io.File;
+import java.util.Map;
 
 @Service
 public class EmailSenderService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+    @Autowired
+    private TemplateEngine templateEngine;
 
     public void sendDimpleEmail(String toEmail,
                                 String body,
@@ -46,6 +51,25 @@ public class EmailSenderService {
         FileSystemResource fileSystemResource =
                 new FileSystemResource(new File(attachment));
         mimeMessageHelper.addAttachment(fileSystemResource.getFilename(), fileSystemResource);
+
+        javaMailSender.send(mimeMessage);
+        System.out.println("Mail Send...");
+    }
+
+    public void sendHtmlEmail(String name,
+                              String toEmail,
+                              String subject) throws MessagingException {
+        Context context = new Context();
+        context.setVariable("name", name);
+        context.setVariable("email", toEmail);
+//        context.setVariables(Map.of("name", name, "email", toEmail));
+        String text = templateEngine.process("welcome", context);
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        mimeMessageHelper.setFrom("oyebodej2@gmail.com");
+        mimeMessageHelper.setTo(toEmail);
+        mimeMessageHelper.setText(text, true);
+        mimeMessageHelper.setSubject(subject);
 
         javaMailSender.send(mimeMessage);
         System.out.println("Mail Send...");

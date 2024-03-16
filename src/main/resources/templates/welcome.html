@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            width: 100px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+        .footer {
+            text-align: center;
+            color: #888888;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img class="logo" src="../static/remita_orange_new_logo.svg" alt="Remita Logo">
+        <h2>Welcome to Dana</h2>
+    </div>
+    <div class="content">
+        <p>Hello <strong th:text="${name}"></strong>,</p>
+        <p>We are excited to welcome you to our team today. We will meet you in the lobby of our building at any time. Please remember to bring your ID.</p>
+        <p>When you arrive, you’ll be shown your office/workstation and introduced to other members of your team. We want you to feel comfortable in your work environment so please let us know if there is anything specific that you need.</p>
+        <p>Your colleagues look forward to meeting you, and we have planned a first-day lunch for you to get to know each other.</p>
+        <p>We are also preparing a robust onboarding schedule for you so you will quickly feel at home. Your onboarding schedule will be sent to you shortly. Once you’ve had a chance to review the schedule, please let us know if you have any requested adjustments.</p>
+        <p>We look forward to working with you—welcome to the team!</p>
+    </div>
+    <div class="footer">
+        <p>Sincerely,<br>Remita to <br th:text="${name}"></p>
+        <img class="logo" src="../static/remita_orange_new_logo.svg" alt="Remita Logo">
+    </div>
+</div>
+</body>
+</html>
